@@ -1,0 +1,46 @@
+cluster_name: bento_cluster
+num_tokens: 1
+allocate_tokens_for_local_replication_factor: 3
+endpoint_snitch: SimpleSnitch
+auto_bootstrap: false
+
+partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+
+seed_provider:
+    - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+      parameters:
+          - seeds: "172.18.0.2"
+
+listen_address: 172.18.0.2
+broadcast_address: 172.18.0.2
+rpc_address: 0.0.0.0
+broadcast_rpc_address: 172.18.0.2
+
+commitlog_sync: periodic
+commitlog_sync_period_in_ms: 10000
+
+data_file_directories:
+    - /var/lib/cassandra/data
+
+commitlog_directory: /var/lib/cassandra/commitlog
+
+saved_caches_directory: /var/lib/cassandra/saved_caches
+
+incremental_backups: true
+
+compaction_throughput_mb_per_sec: 16
+
+stream_throughput_outbound_megabits_per_sec: 200
+
+row_cache_size_in_mb: 0
+key_cache_size_in_mb: 100
+
+memtable_flush_writers: 2
+
+concurrent_compactors: 1
+
+concurrent_reads: 32
+
+concurrent_writes: 32
+
+start_native_transport: true
